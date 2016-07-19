@@ -41,6 +41,7 @@ goalkeeper2.rect.right = WINDOWWIDTH - offset
 goalkeeper2.rect.centery = WINDOWHEIGHT / 2
 
 
+# инициализация мирв
 world = World()
 goalkeeper3 = GoalkeeperEntity(goalkeeper1.rect,
                                goalkeeper1.color,
