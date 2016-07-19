@@ -3,11 +3,12 @@ from ecs_pattern import Entity, Component, System
 
 
 class GoalkeeperEntity(Entity):
-    def __init__(self, rect, color, key_up, key_down, speed):
+    def __init__(self, rect, color, key_up, key_down, speed, min_y, max_y):
         Entity.__init__(self)
         self.add_component(RectComponent(rect))
         self.add_component(ColorComponent(color))
         self.add_component(UpDownComponent(key_up, key_down, speed))
+        self.add_component(VerticalLimitsComponent(min_y, max_y))
 
 
 class RectComponent(Component):
@@ -25,6 +26,12 @@ class UpDownComponent(Component):
         self.key_up = key_up
         self.key_down = key_down
         self.speed = speed
+
+
+class VerticalLimitsComponent(Component):
+    def __init__(self, min_y, max_y):
+        self.min_y = min_y
+        self.max_y = max_y
 
 
 class DrawRectangleSystem(System):
@@ -47,3 +54,15 @@ class UpDownSystem(System):
                     rect.rect.y -= movement.speed
                 if keys[movement.key_down]:
                     rect.rect.y += movement.speed
+
+
+class VecticalLimitsSystem(System):
+    def update(self, entities):
+        for entity in entities:
+            rect = entity.get_component(RectComponent)
+            limits = entity.get_component(VerticalLimitsComponent)
+            if rect and limits:
+                if rect.rect.top < limits.min_y:
+                    rect.rect.top = limits.min_y
+                if rect.rect.bottom > limits.max_y:
+                    rect.rect.bottom = limits.max_y

@@ -5,6 +5,7 @@ from ecs_pattern import World
 from goalkeeper_entity import GoalkeeperEntity
 from goalkeeper_entity import DrawRectangleSystem
 from goalkeeper_entity import UpDownSystem
+from goalkeeper_entity import VecticalLimitsSystem
 
 
 # магическая команда инициализации модуля
@@ -47,16 +48,21 @@ goalkeeper3 = GoalkeeperEntity(goalkeeper1.rect,
                                goalkeeper1.color,
                                goalkeeper1.key_up,
                                goalkeeper1.key_down,
-                               goalkeeper1.speed)
+                               goalkeeper1.speed,
+                               goalkeeper1.TOP,
+                               goalkeeper1.BOTTOM)
 goalkeeper4 = GoalkeeperEntity(goalkeeper2.rect,
                                goalkeeper2.color,
                                goalkeeper2.key_up,
                                goalkeeper2.key_down,
-                               goalkeeper2.speed)
+                               goalkeeper2.speed,
+                               goalkeeper2.TOP,
+                               goalkeeper2.BOTTOM)
 world.add_entity(goalkeeper3)
 world.add_entity(goalkeeper4)
 world.add_system(DrawRectangleSystem())
 world.add_system(UpDownSystem())
+world.add_system(VecticalLimitsSystem())
 
 
 # объект для отслеживания времени
