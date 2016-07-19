@@ -5,14 +5,22 @@ import pygame.locals as pgl
 # магическая команда инициализации модуля
 pygame.init()
 
-# создаем экран 400х300 и меняем заголовок окна
-display = pygame.display.set_mode((400, 300))
-pygame.display.set_caption('Hello World!')
-
 # описание объектов - задний фон и прямоугольник игрока
+WINDOWWIDTH = 500 # размер окна по длине
+WINDOWHEIGHT = 400 # размер окна по ширине
+
+RECTWIDTH = round(WINDOWHEIGHT / 100 * 2) + round(WINDOWWIDTH / 100 * 1) # размер игрока по длине
+RECTHEIGHT = round(WINDOWHEIGHT  / 100 * 20) # размер игрока по ширине
+OFFSET = 15 # расстояние игрока от стенки
+
 background_color = pygame.Color(127, 198, 127, 0)
-goalkeeper_rect = pygame.Rect(30, 100, 20, 60)
+#goalkeeper_rect = pygame.Rect(OFFSET + RECTWIDTH, 100, OFFSET, 60)
+goalkeeper_rect = pygame.Rect(OFFSET,WINDOWHEIGHT / 2 - RECTHEIGHT,RECTWIDTH,RECTHEIGHT)
 goalkeeper_color = pygame.Color(255, 255, 255, 0)
+
+# создаем экран 400х300 и меняем заголовок окна
+display = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
+pygame.display.set_caption('Hello World!')
 
 # объект для отслеживания времени
 clock = pygame.time.Clock()
@@ -44,11 +52,17 @@ while True:
             if event.key == pgl.K_UP:
                 move_up = False
 
+    #str st = goalkeeper_rect.y
+    pygame.display.set_caption(str(goalkeeper_rect.y))
+
+
     # обновление движения игрока
-    if move_down:
-        goalkeeper_rect.y += goalkeeper_speed
-    if move_up:
-        goalkeeper_rect.y -= goalkeeper_speed
+    if (goalkeeper_rect.y < WINDOWHEIGHT  - RECTHEIGHT):
+        if move_down:
+            goalkeeper_rect.y += goalkeeper_speed
+    if (goalkeeper_rect.y >= 10):
+        if move_up:
+            goalkeeper_rect.y -= goalkeeper_speed
 
     # заливка фона
     display.fill(background_color)
