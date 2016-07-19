@@ -4,6 +4,7 @@ from ecs_pattern import Entity, Component, System
 
 class GoalkeeperEntity(Entity):
     def __init__(self, rect, color, key_up, key_down, speed):
+        Entity.__init__(self)
         self.add_component(RectComponent(rect))
         self.add_component(ColorComponent(color))
         self.add_component(UpDownComponent(key_up, key_down, speed))
