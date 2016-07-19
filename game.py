@@ -6,22 +6,36 @@ from goalkeeper import Goalkeeper
 # магическая команда инициализации модуля
 pygame.init()
 
-# создаем экран 400х300 и меняем заголовок окна
-WIDTH = 400
-HEIGHT = 300
-display = pygame.display.set_mode((WIDTH, HEIGHT))
+# создаем экран с заданным размером и меняем заголовок окна
+WINDOWWIDTH = 400
+WINDOWHEIGHT = 300
+display = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
 pygame.display.set_caption('Hello World!')
 
 # цвет фона
 background_color = pygame.Color(127, 198, 127, 0)
 
 # объекты игроков
-goalkeeper1 = Goalkeeper(10, 10, 0, HEIGHT,
+width = 5.0 * WINDOWWIDTH / 100
+height = 20.0 * WINDOWHEIGHT / 100
+offset = 10
+goalkeeper1 = Goalkeeper(width=width,
+                         height=height,
+                         min_y=0,
+                         max_y=WINDOWHEIGHT,
                          color=pygame.Color(255, 64, 64, 0))
-goalkeeper2 = Goalkeeper(WIDTH - 40, 10, 0, HEIGHT,
+goalkeeper1.rect.left = offset
+goalkeeper1.rect.centery = WINDOWHEIGHT / 2
+goalkeeper2 = Goalkeeper(width=width,
+                         height=height,
+                         min_y=0,
+                         max_y=WINDOWHEIGHT,
                          color=pygame.Color(64, 64, 255, 0),
                          key_up=pgl.K_w,
                          key_down=pgl.K_s)
+goalkeeper2.rect.right = WINDOWWIDTH - offset
+goalkeeper2.rect.centery = WINDOWHEIGHT / 2
+
 
 # объект для отслеживания времени
 clock = pygame.time.Clock()
