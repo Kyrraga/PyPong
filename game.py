@@ -1,6 +1,9 @@
 import pygame, sys
 import pygame.locals as pgl
 from goalkeeper import Goalkeeper
+from ecs_pattern import World
+from goalkeeper_entity import GoalkeeperEntity
+from goalkeeper_entity import DrawRectangleSystem
 
 
 # магическая команда инициализации модуля
@@ -37,6 +40,16 @@ goalkeeper2.rect.right = WINDOWWIDTH - offset
 goalkeeper2.rect.centery = WINDOWHEIGHT / 2
 
 
+world = World()
+goalkeeper3 = GoalkeeperEntity(goalkeeper1.rect,
+                               goalkeeper1.color)
+goalkeeper4 = GoalkeeperEntity(goalkeeper2.rect,
+                               goalkeeper2.color)
+world.add_entity(goalkeeper3)
+world.add_entity(goalkeeper4)
+world.add_system(DrawRectangleSystem())
+
+
 # объект для отслеживания времени
 clock = pygame.time.Clock()
 
@@ -48,15 +61,13 @@ while True:
             pygame.quit()
 #           sys.exit()  # не нужно в интерактивном режиме
 
-    # обновление движения игрока
-    goalkeeper1.update()
-    goalkeeper2.update()
+    # обновление мира
+    world.update()
 
     # заливка фона
     display.fill(background_color)
-    # отрисовка игрока
-    goalkeeper1.draw(display)
-    goalkeeper2.draw(display)
+    # отрисовка мира
+    world.draw(display)
 
     # обновление экрана
     pygame.display.update()
