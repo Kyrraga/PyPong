@@ -12,9 +12,9 @@ class World:
         for system in self.systems:
             system.update(self.entities)
 
-    def draw(self):
+    def draw(self, display):
         for system in self.systems:
-            system.draw(self.entities)
+            system.draw(self.entities, display)
 
 
 class Component:
