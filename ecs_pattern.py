@@ -19,14 +19,10 @@ class World:
 
 
 class Component:
-    def __init__(self, name):
-        self.name = name
+    pass
 
 
 class System:
-    def __init__(self, name):
-        self.name = name
-
     def update(self, entities):
         pass
 
@@ -35,9 +31,10 @@ class System:
 
 
 class Entity:
+    """Экземпляры сущностей должны либо иметь тип Entity,
+    либо наследовать от Entity и вызывать Entity.__init__(self)"""
     def __init__(self, name):
         self.components = []
-        self.name = name
 
     def add_component(self, component):
         self.components.append(component)
