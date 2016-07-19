@@ -1,6 +1,7 @@
 class World:
-    entities = []
-    systems = []
+    def __init__(self):
+        self.entities = []
+        self.systems = []
 
     def add_entity(self, entity):
         self.entities.append(entity)
@@ -18,10 +19,14 @@ class World:
 
 
 class Component:
-    pass
+    def __init__(self, name):
+        self.name = name
 
 
 class System:
+    def __init__(self, name):
+        self.name = name
+
     def update(self, entities):
         pass
 
@@ -30,7 +35,9 @@ class System:
 
 
 class Entity:
-    components = []
+    def __init__(self, name):
+        self.components = []
+        self.name = name
 
     def add_component(self, component):
         self.components.append(component)
