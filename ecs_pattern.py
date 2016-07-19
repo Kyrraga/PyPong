@@ -31,6 +31,8 @@ class System:
 
 
 class Entity:
+    """Экземпляры сущностей должны либо иметь тип Entity,
+    либо наследовать от Entity и вызывать Entity.__init__(self)"""
     def __init__(self, name):
         self.components = []
 
