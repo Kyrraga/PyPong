@@ -10,7 +10,7 @@ pygame.init()
 WINDOWWIDTH = 400
 WINDOWHEIGHT = 300
 display = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
-pygame.display.set_caption('Hello World!')
+pygame.display.set_caption('PyPong')
 
 # цвет фона
 background_color = pygame.Color(127, 198, 127, 0)
