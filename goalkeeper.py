@@ -14,6 +14,8 @@ class Goalkeeper:
         self.speed = 10  # per frame
         self.TOP = min_y
         self.BOTTOM = max_y
+        self.key_up = key_up
+        self.key_down = key_down
 
     def update(self):
         keys = pygame.key.get_pressed()
