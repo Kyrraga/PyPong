@@ -22,10 +22,10 @@ class Component:
 
 
 class System:
-    def update(self):
+    def update(self, entities):
         pass
 
-    def draw(self, display):
+    def draw(self, entities, display):
         pass
 
 
