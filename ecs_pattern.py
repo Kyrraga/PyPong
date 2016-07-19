@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class World:
     def __init__(self):
         self.entities = []
