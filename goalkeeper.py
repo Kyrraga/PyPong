@@ -5,13 +5,15 @@ import pygame.locals as pgl
 class Goalkeeper:
     def __init__(self,
                  x=0, y=0,
+                 color=pygame.Color(255, 255, 255, 0),
+                 speed=10,
                  min_y=float('-inf'),
                  max_y=float('inf'),
                  key_up=pgl.K_UP,
                  key_down=pgl.K_DOWN):
         self.rect = pygame.Rect(x, y, 20, 60)
-        self.color = pygame.Color(255, 255, 255, 0)
-        self.speed = 10  # per frame
+        self.color = color
+        self.speed = speed  # per frame
         self.TOP = min_y
         self.BOTTOM = max_y
         self.key_up = key_up
