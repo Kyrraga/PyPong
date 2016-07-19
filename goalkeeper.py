@@ -19,9 +19,9 @@ class Goalkeeper:
 
     def update(self):
         keys = pygame.key.get_pressed()
-        if keys[self.key_up]:
-            self.rect.y += self.speed
         if keys[self.key_down]:
+            self.rect.y += self.speed
+        if keys[self.key_up]:
             self.rect.y -= self.speed
 
         if self.rect.top < self.TOP:
