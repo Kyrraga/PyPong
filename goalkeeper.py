@@ -10,8 +10,10 @@ class Goalkeeper:
                  color=pygame.Color(255, 255, 255, 0),
                  speed=10,
                  key_up=pgl.K_UP,
-                 key_down=pgl.K_DOWN):
-        self.rect = pygame.Rect(x, y, 20, 60)
+                 key_down=pgl.K_DOWN,
+                 width=20,
+                 height=60):
+        self.rect = pygame.Rect(x, y, width, height)
         self.color = color
         self.speed = speed  # per frame
         self.TOP = min_y
