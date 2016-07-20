@@ -18,6 +18,14 @@ class World:
         for system in self.systems:
             system.draw(self.entities, display)
 
+    def __iadd__(self, other):
+        if isinstance(other, Entity):
+            self.add_entity(other)
+        elif isinstance(other, System):
+            self.add_system(other)
+        else:
+            raise TypeError('other should be either Entity or System')
+
 
 class Component:
     pass
@@ -44,3 +52,12 @@ class Entity:
         for component in self.components:
             if isinstance(component, type_):
                 return component
+
+    def __iadd__(self, other):
+        if isinstance(other, Component):
+            self.add_component(other)
+        else:
+            raise TypeError('other should be a Component')
+
+    def __getitem(self, key):
+        return self.get_component(key)
