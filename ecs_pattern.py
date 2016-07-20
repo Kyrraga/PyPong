@@ -20,9 +20,9 @@ class World:
 
     def __iadd__(self, other):
         if isinstance(other, Entity):
-            self.add_entity(other)
+            return self.add_entity(other)
         elif isinstance(other, System):
-            self.add_system(other)
+            return self.add_system(other)
         else:
             raise TypeError('other should be either Entity or System')
 
@@ -55,7 +55,7 @@ class Entity:
 
     def __iadd__(self, other):
         if isinstance(other, Component):
-            self.add_component(other)
+            return self.add_component(other)
         else:
             raise TypeError('other should be a Component')
 
