@@ -2,13 +2,13 @@
 import pygame
 import pygame.locals as pgl
 from ecs_pattern import World, Entity
-from goalkeeper_entity import RectComponent
-from goalkeeper_entity import ColorComponent
-from goalkeeper_entity import UpDownComponent
-from goalkeeper_entity import VerticalLimitsComponent
-from goalkeeper_entity import DrawRectangleSystem
-from goalkeeper_entity import UpDownSystem
-from goalkeeper_entity import VecticalLimitsSystem
+from goalkeeper import RectComponent
+from goalkeeper import ColorComponent
+from goalkeeper import UpDownComponent
+from goalkeeper import VerticalLimitsComponent
+from goalkeeper import DrawRectangleSystem
+from goalkeeper import UpDownSystem
+from goalkeeper import VecticalLimitsSystem
 
 
 def init(WINDOWWIDTH, WINDOWHEIGHT):

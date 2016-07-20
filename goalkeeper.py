@@ -1,14 +1,6 @@
+# -*- coding: utf-8 -*-
 import pygame
-from ecs_pattern import Entity, Component, System
-
-
-class GoalkeeperEntity(Entity):
-    def __init__(self, rect, color, key_up, key_down, speed, min_y, max_y):
-        Entity.__init__(self)
-        self += RectComponent(rect)
-        self += ColorComponent(color)
-        self += UpDownComponent(key_up, key_down, speed)
-        self += VerticalLimitsComponent(min_y, max_y)
+from ecs_pattern import Component, System
 
 
 class RectComponent(Component):
