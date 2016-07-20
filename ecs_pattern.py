@@ -59,5 +59,5 @@ class Entity:
         else:
             raise TypeError('other should be a Component')
 
-    def __getitem(self, key):
+    def __getitem__(self, key):
         return self.get_component(key)
