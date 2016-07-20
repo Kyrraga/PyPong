@@ -58,11 +58,11 @@ goalkeeper4 = GoalkeeperEntity(goalkeeper2.rect,
                                goalkeeper2.speed,
                                goalkeeper2.TOP,
                                goalkeeper2.BOTTOM)
-world.add_entity(goalkeeper3)
-world.add_entity(goalkeeper4)
-world.add_system(DrawRectangleSystem())
-world.add_system(UpDownSystem())
-world.add_system(VecticalLimitsSystem())
+world += goalkeeper3
+world += goalkeeper4
+world += DrawRectangleSystem()
+world += UpDownSystem()
+world += VecticalLimitsSystem()
 
 
 # объект для отслеживания времени

@@ -5,10 +5,10 @@ from ecs_pattern import Entity, Component, System
 class GoalkeeperEntity(Entity):
     def __init__(self, rect, color, key_up, key_down, speed, min_y, max_y):
         Entity.__init__(self)
-        self.add_component(RectComponent(rect))
-        self.add_component(ColorComponent(color))
-        self.add_component(UpDownComponent(key_up, key_down, speed))
-        self.add_component(VerticalLimitsComponent(min_y, max_y))
+        self += RectComponent(rect)
+        self += ColorComponent(color)
+        self += UpDownComponent(key_up, key_down, speed)
+        self += VerticalLimitsComponent(min_y, max_y)
 
 
 class RectComponent(Component):
@@ -37,8 +37,8 @@ class VerticalLimitsComponent(Component):
 class DrawRectangleSystem(System):
     def draw(self, entities, display):
         for entity in entities:
-            rect = entity.get_component(RectComponent)
-            color = entity.get_component(ColorComponent)
+            rect = entity[RectComponent]
+            color = entity[ColorComponent]
             if rect and color:
                 pygame.draw.rect(display, color.color, rect.rect)
 
@@ -47,8 +47,8 @@ class UpDownSystem(System):
     def update(self, entities):
         keys = pygame.key.get_pressed()
         for entity in entities:
-            rect = entity.get_component(RectComponent)
-            movement = entity.get_component(UpDownComponent)
+            rect = entity[RectComponent]
+            movement = entity[UpDownComponent]
             if rect and movement:
                 if keys[movement.key_up]:
                     rect.rect.y -= movement.speed
@@ -59,8 +59,8 @@ class UpDownSystem(System):
 class VecticalLimitsSystem(System):
     def update(self, entities):
         for entity in entities:
-            rect = entity.get_component(RectComponent)
-            limits = entity.get_component(VerticalLimitsComponent)
+            rect = entity[RectComponent]
+            limits = entity[VerticalLimitsComponent]
             if rect and limits:
                 if rect.rect.top < limits.min_y:
                     rect.rect.top = limits.min_y
