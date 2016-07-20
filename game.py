@@ -1,6 +1,7 @@
 import pygame, sys
 import pygame.locals as pgl
 from goalkeeper import Goalkeeper
+from screen import Screen
 from ecs_pattern import World
 from goalkeeper_entity import GoalkeeperEntity
 from goalkeeper_entity import DrawRectangleSystem
@@ -14,8 +15,12 @@ pygame.init()
 # создаем экран с заданным размером и меняем заголовок окна
 WINDOWWIDTH = 400
 WINDOWHEIGHT = 300
-display = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
-pygame.display.set_caption('PyPong')
+#display = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
+#pygame.display.set_caption('PyPong')
+screen = Screen(width = WINDOWWIDTH,
+                height = WINDOWHEIGHT,
+                color = pygame.Color(0, 255, 0, 0),
+                name = 'PyPong')
 
 # цвет фона
 background_color = pygame.Color(127, 198, 127, 0)
@@ -24,22 +29,26 @@ background_color = pygame.Color(127, 198, 127, 0)
 width = 5.0 * WINDOWWIDTH / 100
 height = 20.0 * WINDOWHEIGHT / 100
 offset = 10
-goalkeeper1 = Goalkeeper(width=width,
+goalkeeper1 = Goalkeeper(x = offset,
+                         y = (WINDOWHEIGHT - height)/2,
+                         width=width,
                          height=height,
                          min_y=0,
                          max_y=WINDOWHEIGHT,
                          color=pygame.Color(255, 64, 64, 0))
-goalkeeper1.rect.left = offset
-goalkeeper1.rect.centery = WINDOWHEIGHT / 2
-goalkeeper2 = Goalkeeper(width=width,
+#goalkeeper1.rect.left = offset
+#goalkeeper1.rect.centery = WINDOWHEIGHT / 2
+goalkeeper2 = Goalkeeper(x = WINDOWWIDTH - offset - width,
+                         y = (WINDOWHEIGHT - height)/2,
+                         width=width,
                          height=height,
                          min_y=0,
                          max_y=WINDOWHEIGHT,
                          color=pygame.Color(64, 64, 255, 0),
                          key_up=pgl.K_w,
                          key_down=pgl.K_s)
-goalkeeper2.rect.right = WINDOWWIDTH - offset
-goalkeeper2.rect.centery = WINDOWHEIGHT / 2
+#goalkeeper2.rect.right = WINDOWWIDTH - offset
+#oalkeeper2.rect.centery = WINDOWHEIGHT / 2
 
 
 # инициализация мирв
@@ -80,11 +89,13 @@ while True:
     world.update()
 
     # заливка фона
-    display.fill(background_color)
+    #display.fill(background_color)
+    screen.screen.fill(background_color)
     # отрисовка мира
-    world.draw(display)
+    world.draw(screen.screen)
 
     # обновление экрана
+    #pygame.display.update()
     pygame.display.update()
 
     # пропускаем лишнее время, чтобы
