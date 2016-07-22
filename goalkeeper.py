@@ -1,37 +1,60 @@
+# -*- coding: utf-8 -*-
 import pygame
-import pygame.locals as pgl
+from ecs_pattern import Component, System
 
 
-class Goalkeeper:
-    def __init__(self,
-                 x=0, y=0,
-                 min_y=float('-inf'),
-                 max_y=float('inf'),
-                 color=pygame.Color(255, 255, 255, 0),
-                 speed=10,
-                 key_up=pgl.K_UP,
-                 key_down=pgl.K_DOWN,
-                 width=20,
-                 height=60):
-        self.rect = pygame.Rect(x, y, width, height)
+class RectComponent(Component):
+    def __init__(self, rect):
+        self.rect = rect
+
+
+class ColorComponent(Component):
+    def __init__(self, color):
         self.color = color
-        self.speed = speed  # per frame
-        self.TOP = min_y
-        self.BOTTOM = max_y
+
+
+class UpDownComponent(Component):
+    def __init__(self, key_up, key_down, speed):
         self.key_up = key_up
         self.key_down = key_down
+        self.speed = speed
 
-    def update(self):
+
+class VerticalLimitsComponent(Component):
+    def __init__(self, min_y, max_y):
+        self.min_y = min_y
+        self.max_y = max_y
+
+
+class DrawRectangleSystem(System):
+    def draw(self, entities, display):
+        for entity in entities:
+            rect = entity[RectComponent]
+            color = entity[ColorComponent]
+            if rect and color:
+                pygame.draw.rect(display, color.color, rect.rect)
+
+
+class UpDownSystem(System):
+    def update(self, entities):
         keys = pygame.key.get_pressed()
-        if keys[self.key_down]:
-            self.rect.y += self.speed
-        if keys[self.key_up]:
-            self.rect.y -= self.speed
+        for entity in entities:
+            rect = entity[RectComponent]
+            movement = entity[UpDownComponent]
+            if rect and movement:
+                if keys[movement.key_up]:
+                    rect.rect.y -= movement.speed
+                if keys[movement.key_down]:
+                    rect.rect.y += movement.speed
 
-        if self.rect.top < self.TOP:
-            self.rect.top = self.TOP
-        if self.rect.bottom > self.BOTTOM:
-            self.rect.bottom = self.BOTTOM
 
-    def draw(self, display):
-        pygame.draw.rect(display, self.color, self.rect)
+class VecticalLimitsSystem(System):
+    def update(self, entities):
+        for entity in entities:
+            rect = entity[RectComponent]
+            limits = entity[VerticalLimitsComponent]
+            if rect and limits:
+                if rect.rect.top < limits.min_y:
+                    rect.rect.top = limits.min_y
+                if rect.rect.bottom > limits.max_y:
+                    rect.rect.bottom = limits.max_y
