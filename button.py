@@ -8,10 +8,14 @@ class ButtonComponent(Component):
         self.button = button
 
 
+
 class ColorComponent(Component):
     def __init__(self, color):
         self.color = color
-
+    
+class EventComponent(Component):
+    def __init__(self, event):
+        self.event = event
 
 class DrawButtonSystem(System):
     def draw(self, entities, display):
